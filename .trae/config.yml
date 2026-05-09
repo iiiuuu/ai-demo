@@ -1,0 +1,36 @@
+# Trae配置文件
+version: "1.0"
+
+# 项目上下文配置
+context:
+  project_name: "ai-demo"
+  description: "DDD架构的Spring Boot项目"
+  architecture: "DDD四层架构"
+  
+# 智能体配置
+agents:
+  - name: "harness-engineer"
+    enabled: true
+    skills:
+      - "ddd-analyzer"
+      - "ddd-developer"
+      - "changelog-recorder"
+
+# 规则配置
+rules:
+  - name: "DDD架构约束"
+    files: [".trae/rules/01-architecture-constraints.md"]
+  - name: "Java编码规范"
+    files: [".trae/rules/02-java-coding-style.md"]
+  - name: "Spring Boot全攻略"
+    files: [".trae/rules/03-spring-boot-guide.md"]
+  - name: "MyBatis-Plus全攻略"
+    files: [".trae/rules/04-mybatis-plus-guide.md"]
+  - name: "MapStruct全攻略"
+    files: [".trae/rules/05-mapstruct-guide.md"]
+  - name: "Spock测试全攻略"
+    files: [".trae/rules/06-spock-testing-guide.md"]
+  - name: "Git提交规范"
+    files: [".trae/rules/07-git-commit-message.md"]
+  - name: "开发流程规范"
+    files: [".trae/rules/08-development-workflow.md"]

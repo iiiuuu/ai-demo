@@ -1,0 +1,26 @@
+
+# 环境变量和敏感配置
+.env
+.trae/.env
+*.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 构建输出
+target/
+*.class
+*.jar
+*.war
+
+# 日志
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
