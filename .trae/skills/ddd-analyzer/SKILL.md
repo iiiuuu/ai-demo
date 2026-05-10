@@ -61,6 +61,7 @@ description: "根据需求描述进行DDD领域建模，严格遵循10-ddd-model
 - 系统性比对文档与需求
 - 识别遗漏并补充
 - 最多循环3次验证
+- 询问是否需要执行ddd-developer Skill进行代码生成
 
 ## 输出规范
 
