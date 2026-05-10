@@ -13,7 +13,8 @@
 5. **05-mapstruct-guide.md** - MapStruct全攻略
 6. **06-spock-testing-guide.md** - Spock测试全攻略
 7. **07-git-commit-message.md** - Git提交规范
-8. **08-development-workflow.md** - 开发流程（6阶段TDD）
+8. **08-development-workflow.md** - 开发流程（7阶段TDD）
+9. **09-ddd-document-format.md** - DDD设计文档格式规范
 
 ## 🔴 最重要的5条规则（红线）
 
@@ -37,6 +38,7 @@
 ├── 06-spock-testing-guide.md             # Spock测试全攻略
 ├── 07-git-commit-message.md              # Git提交规范
 ├── 08-development-workflow.md            # 开发流程
+├── 09-ddd-document-format.md             # DDD设计文档格式规范
 └── templates/                            # 测试模板
     ├── testing-guide-template-application-service.md
     ├── testing-guide-template-domain-entity.md
