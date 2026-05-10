@@ -40,12 +40,12 @@ description: "记录对 .trae/ 目录下文件的变更：规则、skill、配�
 
 ### 第三步：生成变更记录 ✍️
 
-按照 `CHANGELOG.md` 的格式，在文件顶部添加新的变更记录。
+按照 `CHANGELOG.md` 的格式，在文件顶部添加新的变更记录。**增加一项新修改的记录，不是修改老的记录过得**
 
 记录结构：
 
 ```markdown
-## YYYY-MM-DD
+## YYYY-MM-DD-HH-MM
 
 ### 修改时间
 {当前时间}

@@ -9,21 +9,40 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
 
 本skill用于根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发，严格遵循项目的 6阶段TDD 开发流程。**支持增量开发**，避免重复创建已有类，只做最小必要改动。
 
+## 前置依赖规范
+
+本Skill执行过程中，必须严格遵循以下规则：
+- [01-architecture-constraints.md](../../rules/01-architecture-constraints.md) - DDD架构约束
+- [02-java-coding-style.md](../../rules/02-java-coding-style.md) - Java编码规范
+- [03-spring-boot-guide.md](../../rules/03-spring-boot-guide.md) - Spring Boot全攻略
+- [04-mybatis-plus-guide.md](../../rules/04-mybatis-plus-guide.md) - MyBatis-Plus全攻略
+- [05-mapstruct-guide.md](../../rules/05-mapstruct-guide.md) - MapStruct全攻略
+- [06-spock-testing-guide.md](../../rules/06-spock-testing-guide.md) - Spock测试全攻略
+- [07-git-commit-message.md](../../rules/07-git-commit-message.md) - Git提交规范
+- [08-development-workflow.md](../../rules/08-development-workflow.md) - 6阶段TDD开发流程（核心流程）
+
+本Skill文档仅描述**在基础规范之上的DDD特有增强**，基础流程请参考上述规则文件。
+
+## 相比基础规范的增强
+
+本Skill在 [08-development-workflow.md](../../rules/08-development-workflow.md) 的基础上，增加了以下DDD开发特有的功能：
+
+| 增强项 | 说明 |
+|-------|------|
+| 增量开发策略 | 检查现有代码库，避免重复创建 |
+| 代码库现状检查 | 扫描 src/ 目录，对比设计与实现 |
+| DDD专用任务拆解 | 按限界上下文、聚合分层制定计划 |
+| 详细进度记录 | 每个阶段生成单独的记录文件 |
+| 变更影响报告 | 任务完成后生成影响范围分析 |
+
 ## 使用时机
 
 ### 触发条件
 
 以下任一情况满足时，使用本skill：
-1. 用户明确要求根据 DDD 设计文档进行代码实现
+1. 用户明确要求根据 DDD 设计文档进行代码实现 
 2. `docs/ddd-models/` 目录下存在设计文档，且用户需要实现
 3. 在 `ddd-analyzer` 执行成功后，用户继续要求代码实现
-
-## 前置条件
-
-在执行前，必须确保：
-- `docs/ddd-models/` 目录下存在有效的 DDD 设计文档
-- 已阅读 `08-development-workflow.md`（6阶段TDD流程）
-- 已阅读 `01-architecture-constraints.md`（架构约束）
 
 ## 增量开发策略 ⚠️
 
@@ -115,44 +134,35 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
 
 ### 第四步：按6阶段TDD流程开发 ⚙️
 
-对每个子任务，严格按照以下阶段执行：
+对每个子任务，严格遵循 [08-development-workflow.md](../../rules/08-development-workflow.md) 中的6阶段流程执行：
 
 #### 阶段1：任务分析与规划（已在第三步完成）
+- 无需重复，已在第三步完成
 
 #### 阶段2：编写失败的测试（红灯）🔴
-
-- **新增功能**：创建新的测试文件
-- **修改功能**：在现有测试文件中添加/修改测试用例
-- Git commit 仅包含测试文件
-- 在 `docs/ddd-task/{任务目录}/` 下记录：`02-红灯阶段.md`
+- **Skill 特有补充**：增量开发时，优先修改现有测试，再新增测试
+- **进度记录**：在任务目录下生成 `02-红灯阶段.md`
+- 其他步骤见规范文件
 
 #### 阶段3：最小实现（绿灯）🟢
-
-- **新增功能**：创建新类
-- **修改功能**：只修改必要的代码，不要重构无关部分
-- 遵循 DDD 分层约束
-- Git commit 实现代码
-- 在 `docs/ddd-task/{任务目录}/` 下记录：`03-绿灯阶段.md`
+- **Skill 特有补充**：优先使用现有类，避免重复创建
+- **进度记录**：在任务目录下生成 `03-绿灯阶段.md`
+- 其他步骤见规范文件
 
 #### 阶段4：重构与审查（清洁）🧹
-
-- 仅在测试保护下重构本次变更的代码
-- 不要重构未变更的代码
-- 改善代码质量
-- Git commit 重构
-- 在 `docs/ddd-task/{任务目录}/` 下记录：`04-清洁阶段.md`
+- **Skill 特有补充**：只重构本次变更的代码，不要重构无关部分
+- **进度记录**：在任务目录下生成 `04-清洁阶段.md`
+- 其他步骤见规范文件
 
 #### 阶段5：端到端验证 ✅
-
-- 运行集成测试
-- 验证功能完整，且没有破坏现有功能
-- 在 `docs/ddd-task/{任务目录}/` 下记录：`05-验证阶段.md`
+- **Skill 特有补充**：运行现有回归测试，确保没有破坏
+- **进度记录**：在任务目录下生成 `05-验证阶段.md`
+- 其他步骤见规范文件
 
 #### 阶段6：文档同步与完成 📝
-
-- 更新相关文档
-- 总结完成情况，说明变更范围
-- 在 `docs/ddd-task/{任务目录}/` 下记录：`06-完成.md`
+- **Skill 特有补充**：生成变更影响报告
+- **进度记录**：在任务目录下生成 `06-完成.md`
+- 其他步骤见规范文件
 
 ### 第五步：变更影响记录
 
@@ -221,7 +231,6 @@ docs/ddd-task/
 - [测试文件2]({相对路径})
 
 ## Git Commit
-```
 {commit hash} - FAILING TEST: {描述}
 ```
 
@@ -243,9 +252,8 @@ docs/ddd-task/
 - [文件2]({相对路径}) - {新增/修改}
 
 ## Git Commit
-```
 {commit hash} - IMPLEMENT: {描述}
-```
+
 
 ## 测试结果
 ✅ 所有 {数量} 个测试通过
@@ -260,9 +268,8 @@ docs/ddd-task/
 - {重构点2}
 
 ## Git Commit
-```
 {commit hash} - REFACTOR: {描述}
-```
+
 
 ## 测试结果
 ✅ 所有 {数量} 个测试通过
@@ -279,10 +286,8 @@ docs/ddd-task/
 - 回归测试：{现有功能是否正常}
 
 ## 命令输出
-```
 {执行的命令和输出}
-```
-```
+```      
 
 **06-完成.md**
 ```markdown
@@ -347,17 +352,6 @@ docs/ddd-task/
    - Request/Response DTO
    - Controller
    - MapStruct 转换器
-
-## 约束检查
-
-在开发过程中，必须确保：
-- ✅ 遵循 `01-architecture-constraints.md`
-- ✅ 遵循 `02-java-coding-style.md`
-- ✅ 遵循 `03-spring-boot-guide.md`
-- ✅ 遵循 `04-mybatis-plus-guide.md`
-- ✅ 遵循 `05-mapstruct-guide.md`
-- ✅ 遵循 `06-spock-testing-guide.md`
-- ✅ 遵循 `07-git-commit-message.md`
 
 ## 项目配置
 

@@ -11,6 +11,47 @@
 2026-05-10
 
 ### 修改原因
+增加TDD流程的第7阶段：持续改进与回顾。创建新Skill code-review-and-improve来实现此环节，使流程更完整，支持规范和Skill的持续进化。
+
+### 修改内容
+- [rules/08-development-workflow.md](rules/08-development-workflow.md) - 更新
+  - 标题：从"6阶段TDD"改为"7阶段TDD"
+  - 新增：阶段7"持续改进与回顾"，包含完整的执行步骤和检查清单
+
+- [skills/code-review-and-improve/SKILL.md](skills/code-review-and-improve/SKILL.md) - 新增
+  - 初始版本：代码审查与持续改进Skill
+  - 实现：规范与Skill检查、业务与架构检查、代码质量检查、测试覆盖检查
+  - 实现：规范与Skill进化、Git操作与PR创建
+  - 包含：检查报告模板
+
+- [config.yml](config.yml) - 更新
+  - 新增：在 harness-engineer 的 skills 列表中添加 "code-review-and-improve"
+
+---
+
+## 2026-05-10 (之前1)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+优化 ddd-developer/SKILL.md，消除与 08-development-workflow.md 的重复内容，明确职责分离：规则文件是"规范之源"，Skill文件是"执行指南"。
+
+### 修改内容
+- [skills/ddd-developer/SKILL.md](skills/ddd-developer/SKILL.md) - 更新
+  - 新增："前置依赖规范"章节，明确引用所有规则文件
+  - 新增："相比基础规范的增强"章节，突出Skill的增量价值
+  - 简化：6阶段TDD描述，改为引用 08-development-workflow.md
+  - 删除：重复的约束检查部分，统一引用规则文件
+
+---
+
+## 2026-05-10 (之前)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
 1. 解决多会话中遗忘记录变更的问题，创建专门的变更记录 skill
 2. 修正错误理解：ddd-analyzer/ddd-developer 输出的是项目代码/文档，不需要记录到 .trae/CHANGELOG.md
 3. 在配置中启用 changelog-recorder skill

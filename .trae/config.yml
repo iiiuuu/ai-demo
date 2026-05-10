@@ -15,6 +15,7 @@ agents:
       - "ddd-analyzer"
       - "ddd-developer"
       - "changelog-recorder"
+      - "code-review-and-improve"
 
 # 规则配置
 rules:
