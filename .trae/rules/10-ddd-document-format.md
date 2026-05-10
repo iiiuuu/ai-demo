@@ -34,17 +34,20 @@
    - 描述：{功能描述}
    - 涉及层级：interface层、application层、domain层、infrastructure层
    - 优先级：P0
+   - 参考文档：{限界上下文文档路径}
 
 2. **{功能点2名称}**
    - 描述：{功能描述}
    - 涉及层级：interface层、application层、domain层、infrastructure层
    - 优先级：P1
+   - 参考文档：{限界上下文文档路径}
 
 ### 优先级2：{限界上下文2}
 1. **{功能点3名称}**
    - 描述：{功能描述}
    - 涉及层级：interface层、application层、domain层、infrastructure层
    - 优先级：P0
+   - 参考文档：{限界上下文文档路径}
 
 ---
 
@@ -59,6 +62,7 @@
 - **必须包含**，这是 ddd-developer 的输入来源
 - 按优先级排序（P0 > P1 > P2）
 - 每个功能点必须明确描述和涉及的层级
+- **必须包含「参考文档」字段**，指定该功能点参考的限界上下文文档
 - 功能点应该是垂直切片（从Interface到Domain完整的功能）
 
 ---
@@ -107,6 +111,68 @@
 
 ---
 
+## ⭐ 5. DTO/Command/BO 详细定义 ⭐
+
+### {限界上下文名} - Interface层
+
+#### {RequestDTO1名称}
+```java
+// RequestDTO定义
+class CreateOrderRequest {
+    @NotNull
+    Long userId;
+    
+    @NotEmpty
+    List<OrderItemRequest> items;
+    
+    String remark;
+}
+```
+- **字段验证规则**：userId必填、items非空
+- **说明**：创建订单的请求参数
+
+#### {ResponseDTO1名称}
+```java
+// ResponseDTO定义
+class OrderResponse {
+    Long orderId;
+    String orderNo;
+    BigDecimal totalAmount;
+    OrderStatus status;
+    LocalDateTime createTime;
+}
+```
+- **说明**：订单详情响应
+
+### {限界上下文名} - Application层
+
+#### {Command1名称}
+```java
+// Command定义
+class CreateOrderCommand {
+    Long userId;
+    List<OrderItemCommand> items;
+    String remark;
+}
+```
+- **字段验证规则**：userId必填、items非空
+- **说明**：创建订单的应用层命令
+
+#### {BO1名称}
+```java
+// BO定义
+class OrderBO {
+    Long orderId;
+    String orderNo;
+    BigDecimal totalAmount;
+    OrderStatus status;
+    LocalDateTime createTime;
+}
+```
+- **说明**：订单业务对象，用于各层数据传递
+
+---
+
 ## 变更日志
 
 | 版本 | 日期 | 变更描述 |
@@ -119,6 +185,148 @@
 - 每个接口必须包含所有必填字段
 - 接口路径遵循RESTful规范
 - RequestDTO和ResponseDTO名称要明确
+
+---
+
+## 📋 DTO/Command/BO 格式规范
+
+### RequestDTO 格式
+
+**标题：** `#### {RequestDTO名称} {[NEW]/[UPDATED]}`
+
+**Java 代码示例：**
+```java
+// RequestDTO定义
+class {RequestDTO名} {
+    {字段列表，包含类型和注释}
+}
+```
+
+**附加说明：**
+- **字段验证规则**：{验证规则列表，如@NotNull、@Size等}
+- **说明**：{该DTO的用途说明}
+
+---
+
+### ResponseDTO 格式
+
+**标题：** `#### {ResponseDTO名称} {[NEW]/[UPDATED]}`
+
+**Java 代码示例：**
+```java
+// ResponseDTO定义
+class {ResponseDTO名} {
+    {字段列表，包含类型和注释}
+}
+```
+
+**附加说明：**
+- **说明**：{该DTO的用途说明}
+
+---
+
+### Command 格式
+
+**标题：** `#### {Command名称} {[NEW]/[UPDATED]}`
+
+**Java 代码示例：**
+```java
+// Command定义
+class {Command名} {
+    {字段列表，包含类型和注释}
+}
+```
+
+**附加说明：**
+- **字段验证规则**：{验证规则列表}
+- **说明**：{该Command的用途说明}
+
+---
+
+### BO 格式
+
+**标题：** `#### {BO名称} {[NEW]/[UPDATED]}`
+
+**Java 代码示例：**
+```java
+// BO定义
+class {BO名} {
+    {字段列表，包含类型和注释}
+}
+```
+
+**附加说明：**
+- **说明**：{该BO的用途说明}
+
+---
+
+## 📋 限界上下文文档补充章节
+
+在「待实现接口清单」**之后**，必须新增以下章节：
+
+```markdown
+---
+
+## ⭐ 5. DTO/Command/BO 详细定义 ⭐
+
+### {限界上下文名} - Interface层
+
+#### {RequestDTO1名称}
+```java
+// RequestDTO定义
+class CreateOrderRequest {
+    @NotNull
+    Long userId;
+    
+    @NotEmpty
+    List<OrderItemRequest> items;
+    
+    String remark;
+}
+```
+- **字段验证规则**：userId必填、items非空
+- **说明**：创建订单的请求参数
+
+#### {ResponseDTO1名称}
+```java
+// ResponseDTO定义
+class OrderResponse {
+    Long orderId;
+    String orderNo;
+    BigDecimal totalAmount;
+    OrderStatus status;
+    LocalDateTime createTime;
+}
+```
+- **说明**：订单详情响应
+
+### {限界上下文名} - Application层
+
+#### {Command1名称}
+```java
+// Command定义
+class CreateOrderCommand {
+    Long userId;
+    List<OrderItemCommand> items;
+    String remark;
+}
+```
+- **字段验证规则**：userId必填、items非空
+- **说明**：创建订单的应用层命令
+
+#### {BO1名称}
+```java
+// BO定义
+class OrderBO {
+    Long orderId;
+    String orderNo;
+    BigDecimal totalAmount;
+    OrderStatus status;
+    LocalDateTime createTime;
+}
+```
+- **说明**：订单业务对象，用于各层数据传递
+```
 
 ---
 
@@ -227,6 +435,8 @@ class {事件名} {
 |---|------|------|
 | 1 | 总览文档必须包含第5章节「待实现功能清单」 | 文档不合格，需重新生成 |
 | 2 | 限界上下文文档必须包含第4章节「待实现接口清单」 | 文档不合格，需重新生成 |
-| 3 | 章节顺序必须严格按照规范 | 文档不合格，需重新生成 |
-| 4 | 每个功能点必须明确描述和涉及的层级 | 文档不合格，需补充 |
-| 5 | 每个接口必须包含所有必填字段 | 文档不合格，需补充 |
+| 3 | 限界上下文文档必须包含第5章节「DTO/Command/BO详细定义」 | 文档不合格，需重新生成 |
+| 4 | 章节顺序必须严格按照规范 | 文档不合格，需重新生成 |
+| 5 | 每个功能点必须明确描述和涉及的层级 | 文档不合格，需补充 |
+| 6 | 每个接口必须包含所有必填字段 | 文档不合格，需补充 |
+| 7 | 每个DTO/Command/BO必须包含完整的字段定义 | 文档不合格，需补充 |

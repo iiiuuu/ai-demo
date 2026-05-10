@@ -13,8 +13,10 @@
 5. **05-mapstruct-guide.md** - MapStruct全攻略
 6. **06-spock-testing-guide.md** - Spock测试全攻略
 7. **07-git-commit-message.md** - Git提交规范
-8. **08-development-workflow.md** - 开发流程（7阶段TDD）
-9. **09-ddd-document-format.md** - DDD设计文档格式规范
+8. **08-ddd-developer.md** - DDD开发者约束
+9. **09-tdd-constraints.md** - TDD开发约束
+10. **10-ddd-document-format.md** - DDD设计文档格式规范
+11. **11-ddd-modelling-process.md** - DDD建模流程核心规范
 
 ## 🔴 最重要的5条规则（红线）
 
@@ -23,8 +25,8 @@
 | 1 | Domain层**绝对禁止**导入MapStruct、MyBatis-Plus、Spring Web的类 | architecture-constraints.md |
 | 2 | **所有跨层对象转换必须通过MapStruct**，禁止BeanUtils.copyProperties | java-coding-style.md |
 | 3 | MyBatis-Plus的类**只能在infrastructure层使用** | mybatis-plus-guide.md |
-| 4 | **强制使用TDD** - 先写失败测试，再实现代码 | spock-testing-guide.md |
-| 5 | 遵循6阶段开发流程：分析→测试→实现→重构→验证→文档 | development-workflow.md |
+| 4 | **强制使用TDD** - 先写失败测试，再实现代码 | tdd-constraints.md |
+| 5 | 多功能点开发时必须按优先级执行，完成后检查剩余任务 | ddd-developer.md |
 
 ## 📁 目录结构
 ```
@@ -37,8 +39,10 @@
 ├── 05-mapstruct-guide.md                 # MapStruct全攻略
 ├── 06-spock-testing-guide.md             # Spock测试全攻略
 ├── 07-git-commit-message.md              # Git提交规范
-├── 08-development-workflow.md            # 开发流程
-├── 09-ddd-document-format.md             # DDD设计文档格式规范
+├── 08-ddd-developer.md                   # DDD开发者约束
+├── 09-tdd-constraints.md                 # TDD开发约束
+├── 10-ddd-document-format.md             # DDD设计文档格式规范
+├── 11-ddd-modelling-process.md           # DDD建模流程核心规范
 └── templates/                            # 测试模板
     ├── testing-guide-template-application-service.md
     ├── testing-guide-template-domain-entity.md

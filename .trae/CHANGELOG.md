@@ -11,6 +11,259 @@
 2026-05-10
 
 ### 修改原因
+将原 08-development-workflow.md 拆分为两个更清晰的规则文件，分别针对 ddd-developer skill 和 tdd-7-steps skill，避免职责混杂。
+
+### 修改内容
+- **新增**：[rules/08-ddd-developer.md](rules/08-ddd-developer.md)
+  - **包含**：前置初始化步骤、DDD开发者红线规则、多功能点循环执行约束、进度跟踪模板
+  - **目标**：专为 ddd-developer skill 提供约束和规范
+- **新增**：[rules/09-tdd-constraints.md](rules/09-tdd-constraints.md)
+  - **包含**：TDD红线规则、7步流程阶段定义、提交信息格式规范
+  - **目标**：专为 tdd-7-steps skill 提供约束和规范
+- **删除**：原 [rules/08-development-workflow.md](rules/08-development-workflow.md)
+  - 职责拆分为上述两个新文件
+- **重命名**：调整后续规则文件编号
+  - [rules/09-ddd-document-format.md](rules/10-ddd-document-format.md) → 09 → 10
+  - [rules/10-ddd-modelling-process.md](rules/11-ddd-modelling-process.md) → 10 → 11
+- **更新**：[rules/00-README.md](rules/00-README.md)
+  - 更新快速开始列表和目录结构
+- **更新**：[skills/ddd-developer/SKILL.md](skills/ddd-developer/SKILL.md)
+  - 更新规则引用
+- **更新**：[skills/tdd-7-steps/SKILL.md](skills/tdd-7-steps/SKILL.md)
+  - 更新规则引用
+- **更新**：[config.yml](config.yml)
+  - 更新规则配置
+
+---
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+进一步优化职责划分，将TDD流程的具体实施完全交给 tdd-7-steps skill，rules 保留约束和规范，避免内容重复。
+
+### 修改内容
+- [rules/08-development-workflow.md](rules/08-development-workflow.md) - 重大调整
+  - **简化**：单个功能点的7步TDD流程详细描述
+  - **保留**：红线规则、多功能点循环执行约束、前置初始化步骤
+  - **新增**：参考 tdd-7-steps skill 的指引
+  - **新增**：相关资源章节，列出所有相关skill
+- [skills/ddd-developer/SKILL.md](skills/ddd-developer/SKILL.md) - 更新
+  - **简化**：第五步单个功能点的实施细节
+  - **改为**：调用 tdd-7-steps skill 执行单个功能点
+  - **保留**：多功能点循环执行、阶段7检查和询问的逻辑
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+用户希望将TDD（测试驱动开发）的7步流程抽取为一个独立的技能模块，便于在不同项目和开发场景中复用。
+
+### 修改内容
+- [skills/tdd-7-steps/SKILL.md](skills/tdd-7-steps/SKILL.md) - 新增
+  - **创建**：独立的TDD 7步流程技能模块
+  - **包含**：完整的实施步骤、适用场景、注意事项、最佳实践
+  - **支持**：独立引用和调用，便于与其他skill协同工作
+- [skills/ddd-developer/SKILL.md](skills/ddd-developer/SKILL.md) - 更新
+  - **新增**：相关Skills章节
+  - **引用**：tdd-7-steps skill作为子流程
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+用户需要将执行机制从口头承诺转变为硬性约束，确保 ddd-developer 严格按照循环执行流程工作。
+
+### 修改内容
+- [rules/08-development-workflow.md](rules/08-development-workflow.md) - 重大更新
+  - **新增**：红线规则8-10，关于多功能点循环执行的强制约束
+  - **新增**：完整的「多功能点循环执行约束」章节
+  - **明确**：优先级排序机制、循环执行逻辑、阶段7强制要求、循环终止条件、绝对禁止行为
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+用户反馈系统在使用 ddd-developer 时存在三个问题需要优化：
+1. 任务执行不完整，仅完成第一个任务后就停止
+2. 执行流程不完整，跳过了第六步和第七步
+3. 待实现功能清单缺少参考文档信息
+
+### 修改内容
+- [rules/09-ddd-document-format.md](rules/09-ddd-document-format.md) - 更新
+  - **新增**：在待实现功能清单模板中增加「参考文档」字段
+  - **新增**：在要求中明确必须包含「参考文档」字段
+- [skills/ddd-developer/SKILL.md](skills/ddd-developer/SKILL.md) - 更新
+  - **新增**：阶段7「检查是否继续下一个任务」
+  - **更新**：明确要求每个功能点完成后必须检查任务列表并询问用户是否继续
+  - **更新**：强调严格按优先级循环执行流程
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+用户指出 ddd-analyzer 在总览文档中提到了3个限界上下文，但只生成了2个的详细文档，缺少"支付"上下文。为了从根源上杜绝此问题，需要在规则中增加约束，确保步骤12的需求验证中必须检查限界上下文数量与文档数量的一致性。
+
+### 修改内容
+- [rules/10-ddd-modelling-process.md](rules/10-ddd-modelling-process.md) - 更新
+  - **新增**：验收标准中增加两条关于限界上下文文档完整性的检查
+  - **新增**：步骤12的强制性检查，包含限界上下文与文档一致性检查清单
+  - **更新**：检查清单分为两部分，第一部分必须首先执行
+- [skills/ddd-analyzer/SKILL.md](skills/ddd-analyzer/SKILL.md) - 更新
+  - **更新**：步骤12的需求验证检查清单
+  - **新增**：1. 限界上下文与文档一致性检查（必须首先执行）
+  - **新增**：2. 需求完整性检查
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+完善 DDD 设计文档格式，补充 DTO/Command/BO 的详细字段定义，让 ddd-developer 能直接据此写代码。
+
+### 修改内容
+- [09-ddd-document-format.md](../../rules/09-ddd-document-format.md) - 大幅更新
+  - **新增**：DTO/Command/BO 格式规范，包含完整示例
+  - **新增**：限界上下文文档第5章「DTO/Command/BO 详细定义」
+  - **更新**：限界上下文文档章节结构，加入第5章
+  - **更新**：红线规则，新增第3条和第7条
+- [skills/ddd-analyzer/SKILL.md](skills/ddd-analyzer/SKILL.md) - 小幅更新
+  - **更新**：步骤10，新增「设计DTO/Command/BO详细定义」部分
+  - **更新**：产出物列表，加入「DTO/Command/BO详细定义」
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+用户反馈 skill.md 中"完整建模流程"和"执行流程"存在冗余，建议融合为一个，让文档更清晰。
+
+### 修改内容
+- [skills/ddd-analyzer/SKILL.md](skills/ddd-analyzer/SKILL.md) - 重构
+  - 合并："完整建模流程"和"执行流程"为一个统一的流程描述
+  - 标题：从"完整建模流程（12步）"改为"完整建模流程（12步 + 总结）"
+  - 新增：步骤 13"输出总结"，整合原执行流程中的输出总结部分
+  - 新增：在步骤 11 中整合"增量更新策略"要点
+  - 删除：独立的"执行流程"章节，避免冗余
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+用户要求进行去重，将 10-ddd-modelling-process.md 和 skill.md 的内容分离：规则文件保留约束和原则，skill 文件保留执行流程，避免内容重复。
+
+### 修改内容
+- [rules/10-ddd-modelling-process.md](rules/10-ddd-modelling-process.md) - 重构
+  - 更新：标题从"DDD建模流程规范"改为"DDD建模约束规范"
+  - 删除：完整的 12 步建模流程（移至 skill.md）
+  - 保留：核心思想、战略设计约束、战术设计约束、聚合设计铁律、验收标准
+  - 保留：子领域划分、限界上下文划分原则、上下文映射模式
+  - 保留：实体vs值对象对比、领域服务设计原则
+  - 保留：领域模型组件要求
+
+- [skills/ddd-analyzer/SKILL.md](skills/ddd-analyzer/SKILL.md) - 重构
+  - 更新：description，强调遵循"约束规范"
+  - 删除：重复的聚合设计铁律、实体vs值对象对比等内容
+  - 新增：在各步骤中引用 10-ddd-modelling-process.md
+  - 保留：完整的 12 步建模流程（详细执行步骤）
+  - 保留：增量更新策略、文档格式规范、输出规范、执行流程
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+用户要求完善DDD建模流程，基于ddd-crew的DDD建模流程和业界最佳实践，创建完整的DDD建模规则，并全面更新ddd-analyzer skill，使其遵循标准的12步建模流程。
+
+### 修改内容
+- [rules/10-ddd-modelling-process.md](rules/10-ddd-modelling-process.md) - 新增
+  - 新增：完整的DDD建模流程规范，包含4个阶段12个步骤
+  - 新增：战略设计（子域、限界上下文、上下文映射）
+  - 新增：战术设计（领域概念、聚合边界、领域模型）
+  - 新增：聚合设计4条铁律（必须严格遵守）
+  - 新增：实体vs值对象对比
+  - 新增：上下文映射模式说明
+  - 新增：验收标准
+  - 新增：参考资料
+
+- [skills/ddd-analyzer/SKILL.md](skills/ddd-analyzer/SKILL.md) - 完全重写
+  - 更新：description，强调遵循10-ddd-modelling-process.md
+  - 新增：前置依赖规范，引用10-ddd-modelling-process.md
+  - 重构：完整建模流程，分为4个阶段12个步骤
+  - 新增：阶段一（对齐与理解）：检查文档、需求对齐
+  - 新增：阶段二（战略架构）：识别子域、限界上下文、上下文映射
+  - 新增：阶段三（战术设计）：提取领域概念、识别聚合边界、设计领域模型、梳理关系
+  - 新增：阶段四（实现与验证）：识别功能点、生成文档、需求验证
+  - 新增：聚合设计4条铁律（必须严格遵守）
+  - 新增：实体vs值对象对比表格
+  - 新增：上下文映射模式说明
+  - 更新：执行流程，同步12步完整流程
+  - 更新：项目配置，强调遵循10-ddd-modelling-process.md
+
+- [rules/00-README.md](rules/00-README.md) - 更新
+  - 新增：10-ddd-modelling-process.md 到快速开始列表
+  - 更新：目录结构，添加新规则文件
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
+用户反馈ddd-analyzer的分析步骤跨度太大，缺少从限界上下文到领域模型之间的中间步骤。完善建模流程，增加更细分的分析步骤，确保DDD建模的完整性和逻辑性。
+
+### 修改内容
+- [skills/ddd-analyzer/SKILL.md](skills/ddd-analyzer/SKILL.md) - 更新
+  - 新增：第四步"识别子域"，划分核心域、支撑域、通用域
+  - 新增：第五步"提取领域概念"，系统提取名词、动词、业务规则
+  - 新增：第六步"识别聚合边界"，确定聚合边界和聚合根
+  - 更新：将原第四步"设计领域模型"改为第七步
+  - 更新：后续所有步骤编号（梳理关系→第八步，识别功能点→第九步，生成文档→第十步，需求验证→第十一步）
+  - 更新：执行流程，同步新增的分析步骤
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
 改进 changelog-recorder，增加醒目的提醒，确保每次修改 .trae/ 后都记得调用此 skill。
 
 ### 修改内容

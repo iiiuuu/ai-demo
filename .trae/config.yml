@@ -33,5 +33,11 @@ rules:
     files: [".trae/rules/06-spock-testing-guide.md"]
   - name: "Git提交规范"
     files: [".trae/rules/07-git-commit-message.md"]
-  - name: "开发流程规范"
-    files: [".trae/rules/08-development-workflow.md"]
+  - name: "DDD开发者约束"
+    files: [".trae/rules/08-ddd-developer.md"]
+  - name: "TDD开发约束"
+    files: [".trae/rules/09-tdd-constraints.md"]
+  - name: "DDD设计文档格式规范"
+    files: [".trae/rules/10-ddd-document-format.md"]
+  - name: "DDD建模流程核心规范"
+    files: [".trae/rules/11-ddd-modelling-process.md"]

@@ -9,8 +9,8 @@
 ### 1.1 包命名
 - **全部小写**，使用单数形式。
 - **严格**遵循 DDD 分层约定的包名：
-    - `com.example.demoai.interfaces.controller`
-    - `com.example.demoai.interfaces.assembler`
+    - `com.example.demoai.interface.controller`
+    - `com.example.demoai.interface.assembler`
     - `com.example.demoai.application.service`
     - `com.example.demoai.application.assembler`
     - `com.example.demoai.domain.model.aggregate`
@@ -95,7 +95,7 @@
 
 | 层                  | Mapper 接口位置                             | 职责                                                                     | 注入者                |
 |:-------------------|:----------------------------------------|:-----------------------------------------------------------------------|:-------------------|
-| **Interface**      | `interfaces/assembler/`                 | Request DTO -> Application Command <br/> Application BO-> Response DTO | Controller         |
+| **Interface**      | `interface/assembler/`                 | Request DTO -> Application Command <br/> Application BO-> Response DTO | Controller         |
 | **Application**    | `application/assembler/`                | Command -> DO <br/> DO -> Application BO                               | ApplicationService |
 | **Infrastructure** | `infrastructure/persistence/assembler/` | DO ↔ Persistence PO                                                    | RepositoryImpl     |
 
@@ -103,9 +103,9 @@
 
 #### Interface 层 Mapper 示例
 ```java
-package com.example.demoai.interfaces.assembler;
+package com.example.demoai.interface.assembler;
 
-import com.example.demoai.interfaces.dto.OrderRequest;
+import com.example.demoai.interface.dto.OrderRequest;
 import com.example.demoai.application.command.CreateOrderCommand;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
