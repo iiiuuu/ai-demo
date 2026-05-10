@@ -11,6 +11,54 @@
 2026-05-10
 
 ### 修改原因
+1. 完善 DDD 开发流程，创建统一的文档格式规范
+2. 改进 ddd-analyzer 和 ddd-developer 工作流，提升执行效率和文档完整性
+3. 调整阶段7的位置，将其作为整体收尾步骤而非单个子任务的一部分
+4. 增加需求验证循环机制，确保文档完整性，同时加入循环保护
+
+### 修改内容
+- [rules/00-README.md](rules/00-README.md) - 更新
+  - 新增：09-ddd-document-format.md 到规则列表
+  - 更新：目录结构
+
+- [rules/08-development-workflow.md](rules/08-development-workflow.md) - 更新
+  - 调整：将阶段7移至后面，改为"整体收尾与持续改进"
+  - 新增：适用场景说明
+  - 更新：阶段编号
+
+- [rules/09-ddd-document-format.md](rules/09-ddd-document-format.md) - 新增
+  - 初始版本：DDD 设计文档格式规范
+  - 包含：总览文档格式、限界上下文文档格式、领域模型详细设计格式
+  - 包含：待实现功能清单、待实现接口清单要求
+  - 包含：红线规则
+
+- [skills/ddd-analyzer/SKILL.md](skills/ddd-analyzer/SKILL.md) - 更新
+  - 新增：前置依赖规范，引用 09-ddd-document-format.md
+  - 删除：重复的文档模板内容
+  - 新增：第八步"需求验证与补充"，包含循环机制
+  - 新增：循环限制（最多3次）
+  - 新增：验证检查清单
+  - 新增：超过限制时的输出模板
+  - 更新：子部分编号（8.1、8.2、8.3）
+  - 更新：执行流程
+
+- [skills/ddd-developer/SKILL.md](skills/ddd-developer/SKILL.md) - 更新
+  - 删除：任务记录相关内容
+  - 调整：全局任务拆解（高纬度）和单个功能点详细拆解（低纬度）的区别
+  - 强调：完整四层实现（Domain→Infrastructure→Application→Interface）
+  - 调整：执行流程，按功能点循环执行7阶段TDD
+  - 删除：子任务中的阶段7
+  - 新增：第七步"整体收尾与持续改进"，所有功能点完成后调用
+  - 明确：调用 code-review-and-improve 的时机
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
 完善 pom.xml 配置规范，确保项目能够正确编译、运行和测试。原来的描述过于简单，缺少构建插件、编译配置、测试配置等关键信息。
 
 ### 修改内容
