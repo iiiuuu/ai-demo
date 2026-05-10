@@ -1,10 +1,16 @@
 
 ---
 name: "changelog-recorder"
-description: "记录对 .trae/ 目录下文件的变更：规则、skill、配置等。每次修改后调用此 skill 来生成变更记录。"
+description: "⚠️ 重要：每次修改 .trae/ 后必须调用！记录对 .trae/ 目录下文件的变更：规则、skill、配置等。"
 ---
 
 # 变更记录器 Skill
+
+## ⚠️ 重要提醒
+
+**每次修改 `.trae/` 目录下的任何文件后，必须立即调用此 skill！**
+
+这是必须遵守的规范，不能遗忘！
 
 ## 功能概述
 
@@ -12,7 +18,7 @@ description: "记录对 .trae/ 目录下文件的变更：规则、skill、配�
 
 ## 使用时机
 
-在以下情况后，立即调用此 skill：
+在以下情况后，**立即调用此 skill**：
 
 1. ✅ 修改了规则文件 (`rules/`)
 2. ✅ 修改了 skill 文件 (`skills/`)

@@ -11,6 +11,22 @@
 2026-05-10
 
 ### 修改原因
+改进 changelog-recorder，增加醒目的提醒，确保每次修改 .trae/ 后都记得调用此 skill。
+
+### 修改内容
+- [skills/changelog-recorder/SKILL.md](skills/changelog-recorder/SKILL.md) - 更新
+  - 更新：description，增加 ⚠️ 重要提醒
+  - 新增：开头的"⚠️ 重要提醒"部分，强调每次修改后必须调用
+  - 更新：使用时机，强调"立即调用"
+
+---
+
+## 2026-05-10 (之前最新)
+
+### 修改时间
+2026-05-10
+
+### 修改原因
 1. 完善 DDD 开发流程，创建统一的文档格式规范
 2. 改进 ddd-analyzer 和 ddd-developer 工作流，提升执行效率和文档完整性
 3. 调整阶段7的位置，将其作为整体收尾步骤而非单个子任务的一部分
