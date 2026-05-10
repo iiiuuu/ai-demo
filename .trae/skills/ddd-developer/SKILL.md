@@ -1,13 +1,13 @@
 ---
 name: "ddd-developer"
-description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发，严格遵循 6阶段TDD 开发流程。支持增量开发，避免重复创建已有类。Invoke when docs/ddd-models/ 下有文档并且需要进行代码实现时"
+description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发，严格遵循 7阶段TDD 开发流程。支持增量开发，避免重复创建已有类。Invoke when docs/ddd-models/ 下有文档并且需要进行代码实现时"
 ---
 
 # DDD开发者 Skill
 
 ## 功能概述
 
-本skill用于根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发，严格遵循项目的 6阶段TDD 开发流程。**支持增量开发**，避免重复创建已有类，只做最小必要改动。
+本skill用于根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发，严格遵循项目的 7阶段TDD 开发流程。**支持增量开发**，避免重复创建已有类，只做最小必要改动。
 
 ## 前置依赖规范
 
@@ -19,7 +19,7 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
 - [05-mapstruct-guide.md](../../rules/05-mapstruct-guide.md) - MapStruct全攻略
 - [06-spock-testing-guide.md](../../rules/06-spock-testing-guide.md) - Spock测试全攻略
 - [07-git-commit-message.md](../../rules/07-git-commit-message.md) - Git提交规范
-- [08-development-workflow.md](../../rules/08-development-workflow.md) - 6阶段TDD开发流程（核心流程）
+- [08-development-workflow.md](../../rules/08-development-workflow.md) - 7阶段TDD开发流程（核心流程）
 
 本Skill文档仅描述**在基础规范之上的DDD特有增强**，基础流程请参考上述规则文件。
 
@@ -132,9 +132,27 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
    - 在 `docs/ddd-task/{任务目录}/` 下生成 `01-任务拆解.md`
    - 记录任务拆解过程和对比结果
 
-### 第四步：按6阶段TDD流程开发 ⚙️
+### 第四步：检查项目是否需要初始化 ⚙️
 
-对每个子任务，严格遵循 [08-development-workflow.md](../../rules/08-development-workflow.md) 中的6阶段流程执行：
+**在开始开发前，必须检查项目状态：**
+
+1. **检查项目是否需要初始化**
+   - 检查是否存在 pom.xml
+   - 检查 src/main/java/ 和 src/test/groovy/ 目录是否存在
+   - 检查主启动类是否存在
+
+2. **如果需要初始化（项目代码不存在）**
+   - **执行前置步骤：项目初始化**（按 08-development-workflow.md 中的前置步骤）
+   - 创建 pom.xml、application.yml、.gitignore、主启动类
+   - 创建 `arch-unit-constraints-test.groovy`（根据 01-architecture-constraints.md）
+   - 验证 mvn compile 和 mvn test-compile 成功
+   - **进度记录**：在任务目录下生成 `00-项目初始化.md`
+
+3. **如果项目已存在，跳过此步，继续下一步**
+
+### 第五步：按7阶段TDD流程开发 ⚙️
+
+对每个子任务，严格遵循 [08-development-workflow.md](../../rules/08-development-workflow.md) 中的7阶段核心流程执行：
 
 #### 阶段1：任务分析与规划（已在第三步完成）
 - 无需重复，已在第三步完成
@@ -146,16 +164,24 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
 
 #### 阶段3：最小实现（绿灯）🟢
 - **Skill 特有补充**：优先使用现有类，避免重复创建
+- **⚠️ 重要**：必须运行 mvn test，如果失败必须解决问题，禁止跳过
+- **解决问题策略**：
+  - 仔细阅读错误日志
+  - 检查是否违反架构约束
+  - 检查代码逻辑
+  - 必要时回退
 - **进度记录**：在任务目录下生成 `03-绿灯阶段.md`
 - 其他步骤见规范文件
 
 #### 阶段4：重构与审查（清洁）🧹
 - **Skill 特有补充**：只重构本次变更的代码，不要重构无关部分
+- **⚠️ 重要**：必须运行 mvn test，如果失败必须解决问题，禁止跳过
 - **进度记录**：在任务目录下生成 `04-清洁阶段.md`
 - 其他步骤见规范文件
 
 #### 阶段5：端到端验证 ✅
 - **Skill 特有补充**：运行现有回归测试，确保没有破坏
+- **⚠️ 重要**：必须确保编译成功、启动成功、测试通过、接口正常
 - **进度记录**：在任务目录下生成 `05-验证阶段.md`
 - 其他步骤见规范文件
 
@@ -164,7 +190,12 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
 - **进度记录**：在任务目录下生成 `06-完成.md`
 - 其他步骤见规范文件
 
-### 第五步：变更影响记录
+#### 阶段7：持续改进与回顾 🔄
+- **Skill 特有补充**：使用 code-review-and-improve Skill来自动化
+- **进度记录**：在任务目录下生成 `07-改进回顾.md`
+- 其他步骤见规范文件
+
+### 第六步：变更影响记录
 
 在任务完成后，生成影响范围报告：
 - 列出所有修改的文件
@@ -179,16 +210,43 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
 ```
 docs/ddd-task/
 └── {限界上下文}-{YYYYMMDD}-{操作类型}/
+    ├── 00-项目初始化.md  (如果执行了前置步骤)
     ├── 01-任务拆解.md
     ├── 02-红灯阶段.md
     ├── 03-绿灯阶段.md
     ├── 04-清洁阶段.md
     ├── 05-验证阶段.md
     ├── 06-完成.md
+    ├── 07-改进回顾.md  (如果执行了阶段7)
     └── {子任务名称}TaskPlan.md
 ```
 
 ### 增强版阶段记录模板
+
+**00-项目初始化.md**
+```markdown
+# 项目初始化阶段
+
+## 检查的内容
+- [ ] pom.xml 是否存在
+- [ ] src/ 目录是否存在
+- [ ] 主启动类是否存在
+- [ ] .gitignore 是否存在
+
+## 创建的文件
+- [pom.xml]({相对路径}) - 新增
+- [application.yml]({相对路径}) - 新增
+- [.gitignore]({相对路径}) - 新增
+- [主启动类]({相对路径}) - 新增
+- [arch-unit-constraints-test.groovy]({相对路径}) - 新增
+
+## 验证结果
+- [ ] mvn compile 成功
+- [ ] mvn test-compile 成功
+
+## Git Commit
+{commit hash} - INIT: {描述}
+```
 
 **01-任务拆解.md**
 ```markdown
@@ -324,6 +382,43 @@ docs/ddd-task/
 - {下一个需要实现的上下文}
 - {需要补充的功能}
 - {需要注意的兼容性问题}
+```
+
+**07-改进回顾.md**
+```markdown
+# 改进回顾阶段
+
+## 规范与Skill检查
+- [ ] 检查了所有规范
+- [ ] 检查了所有Skill
+- [ ] 发现的问题：{列表}
+- [ ] 已完善的内容：{列表}
+
+## 业务与架构检查
+- [ ] 业务功能实现正确
+- [ ] 架构符合规范
+- [ ] 发现的问题：{列表}
+
+## 代码质量检查
+- [ ] 符合所有编码规范
+- [ ] 没有违反架构约束
+- [ ] 发现的问题：{列表}
+
+## 测试覆盖检查
+- [ ] 测试覆盖完整
+- [ ] 没有缺失的测试
+- [ ] 发现的问题：{列表}
+
+## 完善的内容
+- {列表}
+
+## Git操作
+- [ ] 代码已提交
+- [ ] 分支已创建并推送
+- [ ] PR已创建
+
+## Git Commit
+{commit hash} - {描述}
 ```
 
 ## 开发顺序建议

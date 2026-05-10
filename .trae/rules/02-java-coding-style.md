@@ -167,7 +167,46 @@ private OrderApplicationMapper orderApplicationMapper;
 + 禁止 Mapper 接口之间互相调用或循环依赖。
 + 禁止 为了映射强行暴露实体的内部结构（如公开 setter）。如需映射特定字段，应使用 MapStruct 的 @Mapping 注解精确指定，同时保持实体封装。
 
-## 七、自动化检查清单 (AI Agent 提交前自查)
+## 七、代码生成规范 —— 正确书写符号
+
+### 7.1 禁止使用 HTML/XML 实体编码符号
+
+在任何代码文件（包括但不限于 Java、XML、Groovy、Markdown 等）中，**严令禁止**使用以下实体编码符号：
+
+| **禁止的写法** | **必须使用的正确写法** | **说明** |
+|--------------|------------------|---------|
+| `&lt;`      | `<`              | 小于号   |
+| `&gt;`      | `>`              | 大于号   |
+| `&amp;`     | `&`              | 与号     |
+| `&quot;`    | `"`              | 双引号   |
+| `&apos;`    | `'`              | 单引号   |
+
+#### 错误示例
+```java
+// ❌ 错误
+if (a &lt; b) {  // 应该用 <
+    // ...
+}
+List&lt;String&gt; list = new ArrayList&lt;&gt;();  // 应该用 < 和 >
+```
+
+#### 正确示例
+```java
+// ✅ 正确
+if (a < b) {
+    // ...
+}
+List<String> list = new ArrayList<>();
+```
+
+### 7.2 适用场景
+- **所有代码文件**：Java 代码、Groovy 代码、XML 配置文件、Markdown 文档等
+- **泛型定义**：`List<String>` 而非 `List&lt;String&gt;`
+- **条件判断**：`if (a < b)` 而非 `if (a &lt; b)`
+- **比较操作**：`> >= < <= == !=` 等
+- **XML/HTML 标签**：仅在 XML/HTML 内容本身需要转义时使用，代码中一律不使用
+
+## 八、自动化检查清单 (AI Agent 提交前自查)
 在提交代码前，你必须逐项确认：
 
 + 没有魔法值，常量已定义。
@@ -179,3 +218,4 @@ private OrderApplicationMapper orderApplicationMapper;
 + Mapper 未被 domain 层或 application 层直接引用。
 + 复杂 SQL 已放入 XML。
 + 日志级别正确，内容简洁但包含关键上下文。
++ **所有代码文件中不包含 `&lt;`、`&gt;` 等实体编码符号，一律使用 `<`、`>` 等原始符号**。
