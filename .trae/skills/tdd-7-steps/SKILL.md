@@ -18,9 +18,13 @@ description: "TDD（测试驱动开发）7步流程独立技能模块，包含�
 - 集成使用：作为其他skill的子流程
 
 ## 前置依赖
-
+- [02-java-coding-style.md](../../rules/02-java-coding-style.md)
+- [03-spring-boot-guide.md](../../rules/03-spring-boot-guide.md)
+- [04-mybatis-plus-guide.md](../../rules/04-mybatis-plus-guide.md)
+- [05-mapstruct-guide.md](../../rules/05-mapstruct-guide.md)
 - [06-spock-testing-guide.md](../../rules/06-spock-testing-guide.md)
 - [09-tdd-constraints.md](../../rules/09-tdd-constraints.md)
+
 
 ## 执行步骤
 
