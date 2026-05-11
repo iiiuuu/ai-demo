@@ -18,7 +18,13 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
 ## 前置依赖
 
 - [01-architecture-constraints.md](../../rules/01-architecture-constraints.md)
+- [02-java-coding-style.md](../../rules/02-java-coding-style.md)
+- [03-spring-boot-guide.md](../../rules/03-spring-boot-guide.md)
+- [04-mybatis-plus-guide.md](../../rules/04-mybatis-plus-guide.md)
+- [05-mapstruct-guide.md](../../rules/05-mapstruct-guide.md)
+- [06-spock-testing-guide.md](../../rules/06-spock-testing-guide.md)
 - [08-ddd-developer.md](../../rules/08-ddd-developer.md)
+- [09-tdd-constraints.md](../../rules/09-tdd-constraints.md)
 
 ## 执行步骤
 

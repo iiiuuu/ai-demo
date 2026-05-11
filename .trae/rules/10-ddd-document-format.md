@@ -69,9 +69,23 @@
 
 ## 📋 限界上下文文档格式规范
 
-### 必须包含的章节（按顺序）
+### 📋 章节清单（必须包含，按顺序）
 
-```markdown
+| # | 章节 | 说明 | 要求 |
+|---|------|------|------|
+| - | 标题与状态 | `# {限界上下文名称} - 领域模型设计` | 必须包含 `**文档状态**：NEW/UPDATED/EXISTING` |
+| 1 | 上下文概述 | 说明限界上下文的名称、职责、边界 |  |
+| 2 | 聚合设计 | 列出聚合根、实体、值对象 |  |
+| 3 | 领域模型详细设计 | 详细设计实体、值对象、领域服务、仓储接口、领域事件 |  |
+| 4 | ⭐ 待实现接口清单 ⭐ | 列出需要实现的接口 | **必须包含**，每个接口需包含：HTTP方法、路径、功能描述、RequestDTO、ResponseDTO、ApplicationService方法、涉及聚合 |
+| 5 | ⭐ DTO/Command/BO 详细定义 ⭐ | 详细定义 Interface 层和 Application 层的数据对象 | **必须包含**，需完整定义字段和说明 |
+| - | 变更日志 | 记录版本变更 |  |
+
+---
+
+### 📝 完整模板示例
+
+````markdown
 # {限界上下文名称} - 领域模型设计
 
 **文档状态**：NEW/UPDATED/EXISTING
@@ -178,13 +192,7 @@ class OrderBO {
 | 版本 | 日期 | 变更描述 |
 |-----|-----|---------|
 | v{版本号} | {YYYY-MM-DD} | {描述} |
-```
-
-### 第4章节「待实现接口清单」要求
-- **必须包含**，这是 ddd-developer 的输入来源
-- 每个接口必须包含所有必填字段
-- 接口路径遵循RESTful规范
-- RequestDTO和ResponseDTO名称要明确
+````
 
 ---
 
@@ -257,76 +265,6 @@ class {BO名} {
 
 **附加说明：**
 - **说明**：{该BO的用途说明}
-
----
-
-## 📋 限界上下文文档补充章节
-
-在「待实现接口清单」**之后**，必须新增以下章节：
-
-```markdown
----
-
-## ⭐ 5. DTO/Command/BO 详细定义 ⭐
-
-### {限界上下文名} - Interface层
-
-#### {RequestDTO1名称}
-```java
-// RequestDTO定义
-class CreateOrderRequest {
-    @NotNull
-    Long userId;
-    
-    @NotEmpty
-    List<OrderItemRequest> items;
-    
-    String remark;
-}
-```
-- **字段验证规则**：userId必填、items非空
-- **说明**：创建订单的请求参数
-
-#### {ResponseDTO1名称}
-```java
-// ResponseDTO定义
-class OrderResponse {
-    Long orderId;
-    String orderNo;
-    BigDecimal totalAmount;
-    OrderStatus status;
-    LocalDateTime createTime;
-}
-```
-- **说明**：订单详情响应
-
-### {限界上下文名} - Application层
-
-#### {Command1名称}
-```java
-// Command定义
-class CreateOrderCommand {
-    Long userId;
-    List<OrderItemCommand> items;
-    String remark;
-}
-```
-- **字段验证规则**：userId必填、items非空
-- **说明**：创建订单的应用层命令
-
-#### {BO1名称}
-```java
-// BO定义
-class OrderBO {
-    Long orderId;
-    String orderNo;
-    BigDecimal totalAmount;
-    OrderStatus status;
-    LocalDateTime createTime;
-}
-```
-- **说明**：订单业务对象，用于各层数据传递
-```
 
 ---
 
