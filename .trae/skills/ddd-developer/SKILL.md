@@ -49,8 +49,7 @@ description: "根据 ddd-analyzer 生成的 DDD 设计文档进行代码开发�
 ### 4. 项目初始化（如需要）
 
 - 检查项目是否需要初始化
-- 如需要，创建 pom.xml、application.yml、主启动类等
-- 验证 mvn compile 成功
+- 如需要，调用project-init skill 进行项目初始化
 
 ### 5. 循环执行每个功能点
 
