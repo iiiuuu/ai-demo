@@ -9,8 +9,8 @@
 ### 1.1 包命名
 - **全部小写**，使用单数形式。
 - **严格**遵循 DDD 分层约定的包名：
-    - `com.example.demoai.interfaces.controller`
-    - `com.example.demoai.interfaces.assembler`
+    - `com.example.demoai.interface.controller`
+    - `com.example.demoai.interface.assembler`
     - `com.example.demoai.application.service`
     - `com.example.demoai.application.assembler`
     - `com.example.demoai.domain.model.aggregate`
@@ -95,7 +95,7 @@
 
 | 层                  | Mapper 接口位置                             | 职责                                                                     | 注入者                |
 |:-------------------|:----------------------------------------|:-----------------------------------------------------------------------|:-------------------|
-| **Interface**      | `interfaces/assembler/`                 | Request DTO -> Application Command <br/> Application BO-> Response DTO | Controller         |
+| **Interface**      | `interface/assembler/`                 | Request DTO -> Application Command <br/> Application BO-> Response DTO | Controller         |
 | **Application**    | `application/assembler/`                | Command -> DO <br/> DO -> Application BO                               | ApplicationService |
 | **Infrastructure** | `infrastructure/persistence/assembler/` | DO ↔ Persistence PO                                                    | RepositoryImpl     |
 
@@ -103,9 +103,9 @@
 
 #### Interface 层 Mapper 示例
 ```java
-package com.example.demoai.interfaces.assembler;
+package com.example.demoai.interface.assembler;
 
-import com.example.demoai.interfaces.dto.OrderRequest;
+import com.example.demoai.interface.dto.OrderRequest;
 import com.example.demoai.application.command.CreateOrderCommand;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -167,7 +167,100 @@ private OrderApplicationMapper orderApplicationMapper;
 + 禁止 Mapper 接口之间互相调用或循环依赖。
 + 禁止 为了映射强行暴露实体的内部结构（如公开 setter）。如需映射特定字段，应使用 MapStruct 的 @Mapping 注解精确指定，同时保持实体封装。
 
-## 七、自动化检查清单 (AI Agent 提交前自查)
+## 七、代码生成规范 —— 正确书写符号
+
+### 7.1 禁止使用 HTML/XML 实体编码符号
+
+在任何代码文件（包括但不限于 Java、XML、Groovy、Markdown 等）中，**严令禁止**使用以下实体编码符号：
+
+| **禁止的写法** | **必须使用的正确写法** | **说明** |
+|--------------|------------------|---------|
+| `&lt;`      | `<`              | 小于号   |
+| `&gt;`      | `>`              | 大于号   |
+| `&amp;`     | `&`              | 与号     |
+| `&quot;`    | `"`              | 双引号   |
+| `&apos;`    | `'`              | 单引号   |
+
+#### 错误示例
+```java
+// ❌ 错误
+if (a &lt; b) {  // 应该用 <
+    // ...
+}
+List&lt;String&gt; list = new ArrayList&lt;&gt;();  // 应该用 < 和 >
+```
+
+#### 正确示例
+```java
+// ✅ 正确
+if (a < b) {
+    // ...
+}
+List<String> list = new ArrayList<>();
+```
+
+### 7.2 适用场景
+- **所有代码文件**：Java 代码、Groovy 代码、XML 配置文件、Markdown 文档等
+- **泛型定义**：`List<String>` 而非 `List&lt;String&gt;`
+- **条件判断**：`if (a < b)` 而非 `if (a &lt; b)`
+- **比较操作**：`> >= < <= == !=` 等
+- **XML/HTML 标签**：仅在 XML/HTML 内容本身需要转义时使用，代码中一律不使用
+
+## 九、基本语法规范 —— 零容忍的底线
+
+所有代码文件（Java、XML、Groovy）**必须**符合各自语言的基本语法规范，以下是最低限度的硬性要求。
+
+### 9.1 Java 语法规范
+
+| # | 规则 | 正确示例 | 错误示例 |
+|---|------|---------|---------|
+| 1 | 每条语句**必须**以 `;` 结尾 | `int a = 1;` | `int a = 1` |
+| 2 | 代码块**必须**使用 `{}` 包裹，不可省略 | `if (x) { doSomething(); }` | `if (x) doSomething();` |
+| 3 | 字符串**必须**使用直双引号 `"`，不可使用弯引号 `"` `"` | `"hello"` | `"hello"` 或 `"hello"` |
+| 4 | 泛型**必须**使用 `<>`，不可使用全角符号 `＜＞` | `List<String>` | `List＜String＞` |
+| 5 | 注解**必须**使用 `@`，不可使用其他符号替代 | `@Override` | `＠Override` |
+| 6 | 数组声明 `[]` 紧跟类型，不加空格 | `String[] args` | `String [] args` |
+| 7 | `package` 声明必须在文件第一行（注释除外），`import` 紧随其后 | — | — |
+| 8 | 类体、方法体的 `{` 放在声明同一行末尾，`}` 独占一行 | `public class Foo {` | `public class Foo\n{` |
+| 9 | 单行注释 `//`、多行注释 `/* */`、Javadoc `/** */` 必须正确闭合 | `/* comment */` | `/* comment`（未闭合） |
+| 10 | 关键字拼写正确：`class`、`public`、`private`、`static`、`void`、`new`、`return`、`if`、`else`、`for`、`while`、`try`、`catch`、`throw`、`throws`、`import`、`package`、`extends`、`implements`、`interface`、`enum` | — | `clss`、`pubic`、`statc` 等拼写错误 |
+
+### 9.2 XML 语法规范
+
+| # | 规则 | 正确示例 | 错误示例 |
+|---|------|---------|---------|
+| 1 | 所有标签**必须**正确闭合 | `<tag>content</tag>` 或 `<tag/>` | `<tag>content` |
+| 2 | 属性值**必须**用半角双引号 `"` 包裹 | `<tag attr="value"/>` | `<tag attr=value/>` 或 `<tag attr='value'/>` |
+| 3 | 注释格式**必须**为 `<!-- -->`，且不能嵌套 | `<!-- comment -->` | `<!-- comment --!>` 或嵌套注释 |
+| 4 | XML 声明（如有）**必须**在文件第一行第一列 | `<?xml version="1.0" encoding="UTF-8"?>` | 前面有空行或空格 |
+| 5 | 特殊字符转义**仅**在 XML 文本内容中使用：`&lt;` `&gt;` `&amp;` `&quot;` `&apos;` | `<tag>a &lt; b</tag>` | 在 Java/Groovy 代码中使用这些转义 |
+| 6 | 标签名区分大小写，开始标签与结束标签大小写**必须**一致 | `<Tag></Tag>` | `<Tag></tag>` |
+| 7 | 有且仅有一个根元素 | `<root><a/><b/></root>` | `<a/><b/>`（无根元素） |
+
+### 9.3 Groovy 语法规范
+
+| # | 规则 | 正确示例 | 错误示例 |
+|---|------|---------|---------|
+| 1 | 分号 `;` 可选，但同一文件内**必须保持一致**——要么全加，要么全不加 | 全不加：`def x = 1` | 混用：`def x = 1; def y = 2` |
+| 2 | 字符串可使用单引号 `'...'` 或双引号 `"..."`，不可使用弯引号 | `'hello'` 或 `"hello"` | `"hello"` |
+| 3 | 方法调用括号可选，但无参方法调用**必须**加括号以区分属性访问 | `list.size()` | `list.size`（歧义） |
+| 4 | 闭包**必须**使用 `{}` 或 `->` 箭头语法 | `{ it -> it * 2 }` | 语法残缺的闭包 |
+| 5 | `def` 关键字用于动态类型，明确类型时使用具体类型名 | `String name = "foo"` | 能用具体类型却用 `def` |
+| 6 | Spock 测试方法名使用字符串字面量，用单引号或双引号包裹 | `def "test something"() {` | `def test_something() {` |
+| 7 | `package` 声明必须在文件第一行（注释除外），`import` 紧随其后 | — | — |
+
+### 9.4 通用规则（适用于所有文件类型）
+
+| # | 规则 |
+|---|------|
+| 1 | 文件编码**必须**为 UTF-8 |
+| 2 | 缩进使用 4 个空格，**禁止**使用 Tab 字符 |
+| 3 | 行尾**禁止**有多余空格 |
+| 4 | 文件末尾**必须**有且仅有一个空行 |
+| 5 | **禁止**使用全角符号替代半角符号（如中文逗号 `，` 替代英文逗号 `,`、中文分号 `；` 替代英文分号 `;`） |
+| 6 | **禁止**出现不可见控制字符（如 `\u200B` 零宽空格等） |
+
+## 十、自动化检查清单 (AI Agent 提交前自查)
 在提交代码前，你必须逐项确认：
 
 + 没有魔法值，常量已定义。
@@ -179,3 +272,9 @@ private OrderApplicationMapper orderApplicationMapper;
 + Mapper 未被 domain 层或 application 层直接引用。
 + 复杂 SQL 已放入 XML。
 + 日志级别正确，内容简洁但包含关键上下文。
++ **所有代码文件中不包含 `&lt;`、`&gt;` 等实体编码符号，一律使用 `<`、`>` 等原始符号**。
++ **Java 每条语句以 `;` 结尾，代码块使用 `{}` 包裹，字符串使用直双引号 `"`**。
++ **XML 所有标签正确闭合，属性值用半角双引号包裹，注释格式 `<!-- -->`**。
++ **Groovy 分号使用一致（全加或全不加），Spock 测试方法名使用字符串字面量**。
++ **无全角符号替代半角符号（中文逗号/分号等），无不可见控制字符**。
++ **缩进使用 4 个空格，无 Tab 字符，行尾无多余空格，文件末尾有且仅有一个空行**。
